@@ -13,11 +13,14 @@
   </head>
 
   <body>
-    <!-- <header class="jumbotron"> -->
     <h1 class="bg-dark text-white text-center">Weather Dashboard</h1>
-    <!-- <p class="lead">A simple calendar app for scheduling your work day</p> -->
-    <!-- <p id="currentDay" class="lead"></p> -->
-    <!-- </header> -->
+    <div class="bg-light p-2 d-flex flex-column">
+      <p class="">Search for a city</p>
+      <form>
+        <input id="textInput" type="text" />
+        <button id="btnSubmit" type="submit">Submit</button>
+      </form>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
