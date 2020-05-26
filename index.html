@@ -8,19 +8,48 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="style.css" />
-    <title>Work Day Scheduler</title>
+    <title>Weather Dashboard</title>
   </head>
 
   <body>
     <h1 class="bg-dark text-white text-center">Weather Dashboard</h1>
-    <div class="bg-light p-2 d-flex flex-column">
-      <p class="">Search for a city</p>
-      <form>
-        <input id="textInput" type="text" />
-        <button id="btnSubmit" type="submit">Submit</button>
-      </form>
-    </div>
+    <main class="d-flex">
+      <div class="bg-dark p-3 d-flex flex-column">
+        <p class="">Search for a city</p>
+        <form>
+          <input id="textInput" type="text" placeholder="Search for a city" />
+          <button
+            class="bg-primary text-white rounded"
+            id="btnSubmit"
+            type="submit"
+          >
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+        <ul id="searchHistory"></ul>
+      </div>
+      <!-- <p id="demo"></p> -->
+      <div class="card p-4 d-none" id="mainContainer">
+        <h1 id="cityName"></h1>
+        <img
+          id="weather-icon"
+          style="width: 50px; height: 50px;"
+          alt="weather-icon"
+        />
+        <p id="currentHumidity"></p>
+        <p id="currentTemp"></p>
+        <p id="windSpeed"></p>
+        <div id="uvIndex"></div>
+      </div>
+    </main>
+    <div class="d-flex"></div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
