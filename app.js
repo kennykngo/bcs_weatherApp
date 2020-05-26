@@ -1,6 +1,6 @@
 $(document).ready(function () {
   var api_key_kenny = "6dbe43cb883ce8ea55cc9545b5f2cea3";
-  var date = moment().format("L");
+  var date = moment().format("(L)");
 
   $("#btnSubmit").on("click", function (e) {
     // $("#mainContainer").removeClass("d-none");
@@ -15,14 +15,25 @@ $(document).ready(function () {
   function currentWeather(cityName) {
     $.ajax({
       type: "GET",
-      // url: `api.openweathermap.org/data/2.5/weather?q=San%20Francisco&appid=${api_key}`,
       url: `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${api_key_kenny}`,
-      // lat=35&lon=139
       dataType: "json",
       success: function (res) {
         console.log(cityName);
-        $("#searchHistory").prepend(`<li class="card">${res.name}</li>`);
+        // $("#searchHistory").prepend(`<li class="card w-100">${res.name}</li>`);
+        // var previousSearch = JSON.parse(localStorage.getItem("city")) || [];
+        // // for (var i = 0; i < previousSearch.length; i++) {
+        // previousSearch.push(res.name);
+        // // }
+        // localStorage.setItem("city", JSON.stringify(previousSearch));
+        // function searchHistory() {
         var previousSearch = JSON.parse(localStorage.getItem("city")) || [];
+        for (var i = 0; i < previousSearch.length; i++) {
+          $("#searchHistory").prepend(
+            `<li class="card w-100 list-style-none">${previousSearch[i]}</li>`
+          );
+        }
+        // }
+
         previousSearch.push(res.name);
         localStorage.setItem("city", JSON.stringify(previousSearch));
 
