@@ -28,4 +28,5 @@ li:first-child {
 .futureCard {
   width: 18%;
   margin-right: 2%;
+  white-space: nowrap;
 }
