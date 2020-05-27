@@ -9,3 +9,11 @@
 .bg-orange {
   background-color: orange;
 }
+
+li:first-child {
+  margin-top: 7px;
+}
+
+#mainContainer {
+  height: 80%;
+}

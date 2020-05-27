@@ -1,6 +1,7 @@
 $(document).ready(function () {
   var api_key_kenny = "6dbe43cb883ce8ea55cc9545b5f2cea3";
   var date = moment().format("(L)");
+  // searchHistory();
 
   $("#btnSubmit").on("click", function (e) {
     // $("#mainContainer").removeClass("d-none");
@@ -9,6 +10,7 @@ $(document).ready(function () {
     e.preventDefault();
     console.log(textInput);
     currentWeather(cityName);
+    futureWeather(cityName);
     // searchHistory();
   });
 
@@ -18,29 +20,33 @@ $(document).ready(function () {
       url: `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${api_key_kenny}`,
       dataType: "json",
       success: function (res) {
-        console.log(cityName);
-        // $("#searchHistory").prepend(`<li class="card w-100">${res.name}</li>`);
-        // var previousSearch = JSON.parse(localStorage.getItem("city")) || [];
-        // // for (var i = 0; i < previousSearch.length; i++) {
-        // previousSearch.push(res.name);
-        // // }
-        // localStorage.setItem("city", JSON.stringify(previousSearch));
-        // function searchHistory() {
         var previousSearch = JSON.parse(localStorage.getItem("city")) || [];
+
+        // pushes res.name (name of city) into the array;
+        previousSearch.push(res.name);
+        // shifts the first item of the array;
+        previousSearch.shift();
+        // splices items > 8;
+        for (var i = 0; i < 3; i++) {
+          previousSearch.splice(3, 1);
+        }
+        console.log(previousSearch);
+
+        //clears searchHistory
+        $("#searchHistory").html("");
+        // prepend li elements
         for (var i = 0; i < previousSearch.length; i++) {
           $("#searchHistory").prepend(
-            `<li class="card w-100 list-style-none">${previousSearch[i]}</li>`
+            `<li class="card w-100 p-2">${previousSearch[i]}</li>`
           );
         }
-        // }
-
-        previousSearch.push(res.name);
         localStorage.setItem("city", JSON.stringify(previousSearch));
+
+        // }
 
         console.log(res);
 
         var kelvinTemp = parseFloat(res.main.temp);
-        // console.log(kelvinTemp);
         var farenTemp = parseInt((kelvinTemp - 273.15) * 1.8 + 32);
         var weatherIcon = res.weather[0].icon;
         var currentHumidity = res.main.humidity;
@@ -77,17 +83,6 @@ $(document).ready(function () {
               );
             }
 
-            // function searchHistory() {
-            //   var searchHistory =
-            //     JSON.parse(localStorage.getItem("city")) || [];
-            //   $("#searchHistory").empty();
-            //   for (i = 0; i < searchHistory.length; i++) {
-            //     $("#searchHistory").prepend(
-            //       `<li class="card">${searchHistory[i]}</li>`
-            //     );
-            //   }
-            // }
-
             console.log(uvIndexNum);
             $("#mainContainer").removeClass("d-none");
           },
@@ -95,4 +90,22 @@ $(document).ready(function () {
       },
     });
   }
+
+  function futureWeather(cityName) {
+    $.ajax({
+      type: "GET",
+      url: `https://api.openweathermpa.org/data/2.5/forecast?q=${cityName}&appid=${api_key_kenny}&units=imperial`,
+      dataType: "json",
+      success: function (res) {
+        console.log(res);
+      },
+    });
+  }
 });
+
+// $("#searchHistory").prepend(`<li class="card w-100">${res.name}</li>`);
+// var previousSearch = JSON.parse(localStorage.getItem("city")) || [];
+// // for (var i = 0; i < previousSearch.length; i++) {
+// previousSearch.push(res.name);
+// // }
+// localStorage.setItem("city", JSON.stringify(previousSearch));
