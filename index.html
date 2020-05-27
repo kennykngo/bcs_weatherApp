@@ -37,22 +37,27 @@
       </div>
 
       <!-- beginning of currentWeather card -->
-      <div class="card p-4 d-none w-100 mx-3 h-2" id="mainContainer">
-        <div class="d-flex">
-          <h1 id="cityName"></h1>
-          <img
-            id="weather-icon"
-            style="width: 50px; height: 50px;"
-            alt="weather-icon"
-          />
+      <section class="w-100">
+        <div class="card p-4 d-none mx-3" id="mainContainer">
+          <div class="d-flex">
+            <h1 id="cityName"></h1>
+            <img
+              id="weather-icon"
+              style="width: 50px; height: 50px;"
+              alt="weather-icon"
+            />
+          </div>
+          <p id="currentHumidity"></p>
+          <p id="currentTemp"></p>
+          <p id="windSpeed"></p>
+          <div id="uvIndex"></div>
         </div>
-        <p id="currentHumidity"></p>
-        <p id="currentTemp"></p>
-        <p id="windSpeed"></p>
-        <div id="uvIndex"></div>
-      </div>
+        <div class="d-none pt-5" id="futureWeatherContainer">
+          <h3>5-Day Forecast:</h3>
+          <div class="d-flex h-50" id="futureWeather"></div>
+        </div>
+      </section>
     </main>
-    <div class="d-flex"></div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>

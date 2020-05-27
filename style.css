@@ -11,9 +11,21 @@
 }
 
 li:first-child {
-  margin-top: 7px;
+  margin-top: 20px;
 }
 
 #mainContainer {
-  height: 80%;
+  height: 30%;
+}
+
+#futureWeatherContainer {
+  margin-left: 16px;
+}
+/* .futureCard:first-child {
+  margin-left: 16px;
+} */
+
+.futureCard {
+  width: 18%;
+  margin-right: 2%;
 }

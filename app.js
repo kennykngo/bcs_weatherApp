@@ -1,7 +1,7 @@
 $(document).ready(function () {
   var api_key_kenny = "6dbe43cb883ce8ea55cc9545b5f2cea3";
+  var api_future = "aee787453bf68f18f709bc53304da5b4";
   var date = moment().format("(L)");
-  // searchHistory();
 
   $("#btnSubmit").on("click", function (e) {
     // $("#mainContainer").removeClass("d-none");
@@ -11,6 +11,7 @@ $(document).ready(function () {
     console.log(textInput);
     currentWeather(cityName);
     futureWeather(cityName);
+
     // searchHistory();
   });
 
@@ -24,12 +25,22 @@ $(document).ready(function () {
 
         // pushes res.name (name of city) into the array;
         previousSearch.push(res.name);
+
         // shifts the first item of the array;
-        previousSearch.shift();
-        // splices items > 8;
-        for (var i = 0; i < 3; i++) {
-          previousSearch.splice(3, 1);
+
+        /* If the items in the localStorage array > 8, then .shift();
+        
+        ["b", "c"]
+         */
+
+        while (previousSearch.length > 8) {
+          previousSearch.shift();
         }
+        // splices items > 8;
+
+        // for (var i = 0; i < 3; i++) {
+        //   previousSearch.splice(0, 1);
+        // }
         console.log(previousSearch);
 
         //clears searchHistory
@@ -94,10 +105,35 @@ $(document).ready(function () {
   function futureWeather(cityName) {
     $.ajax({
       type: "GET",
-      url: `https://api.openweathermpa.org/data/2.5/forecast?q=${cityName}&appid=${api_key_kenny}&units=imperial`,
+      url: `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${api_key_kenny}`,
       dataType: "json",
       success: function (res) {
-        console.log(res);
+        debugger;
+
+        $("#futureWeather").html("");
+        for (var i = 0; i < 5; i++) {
+          var futureDates = moment()
+            .add(i + 1, "days")
+            .format("L");
+          var farenTemp = parseInt((res.list[i].main.temp - 273.15) * 1.8 + 32);
+          var futureHumid = res.list[i].main.humidity;
+          var weatherIcon = res.list[i].weather[0].icon;
+          var iconUrl =
+            "https://openweathermap.org/img/wn/" + weatherIcon + ".png";
+
+          $("#futureWeather").append(`
+          <div class="card futureCard"> 
+            <div class="p-2 bg-primary text-white">
+              <h3 class="p-2"> ${futureDates} </h3>
+              <img src="${iconUrl}" style="width:50px; height: 50px"/>
+              <p> Temp: ${farenTemp} ºF </p>
+              <p> Humidity: ${futureHumid}% </p>
+            </div>
+          </div>
+        `);
+        }
+
+        $("#futureWeatherContainer").removeClass("d-none");
       },
     });
   }
